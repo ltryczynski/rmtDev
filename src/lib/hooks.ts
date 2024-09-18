@@ -49,7 +49,7 @@ export function useJobItems(ids: number[]) {
 
     const jobItems = results.map(result => result.data?.jobItem).filter(jobItem => jobItem !== undefined)
     const isLoading = results.some(result => result.isLoading)
-
+    console.log(jobItems);
     return { jobItems, isLoading }
 }
 
@@ -59,7 +59,7 @@ const fetchJobItem = async (id: number): Promise<JobItemApiResponse> => {
         const errorData = await res.json();
         throw new Error(errorData.description);
     }
-    const data = await res.json();
+    const data: JobItemApiResponse = await res.json();
     return data;
 }
 
@@ -141,7 +141,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, React.Disp
     useEffect(() => {
         localStorage.setItem(key, JSON.stringify(value));
     }, [value, key]);
-    return [value, setValue] as const;
+    return [value, setValue];
 }
 
 export function useSearchContext() {

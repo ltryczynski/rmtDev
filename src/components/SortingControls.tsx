@@ -4,18 +4,18 @@ import { SortingButtonType } from "../lib/types";
 export default function SortingControls() {
   const { sortBy, handleSortBySort, handleToggleSortByOrder, jobItemsCount } = useJobItemsContext();
 
-  return (
-    !!jobItemsCount && (
-      <section className="sorting">
-        <i
-          className={`fa-solid fa-arrow-${sortBy.order === "ASC" ? "down" : "up"}-short-wide`}
-          onClick={handleToggleSortByOrder}></i>
+  return jobItemsCount ? (
+    <section className="sorting">
+      <i
+        className={`fa-solid fa-arrow-${
+          sortBy.order === "ASC" ? "down" : "up"
+        }-short-wide cursor-pointer`}
+        onClick={handleToggleSortByOrder}></i>
 
-        <SortingButton type="relevant" sortBy={sortBy} handleSortBySort={handleSortBySort} />
-        <SortingButton type="recent" sortBy={sortBy} handleSortBySort={handleSortBySort} />
-      </section>
-    )
-  );
+      <SortingButton type="relevant" sortBy={sortBy} handleSortBySort={handleSortBySort} />
+      <SortingButton type="recent" sortBy={sortBy} handleSortBySort={handleSortBySort} />
+    </section>
+  ) : null;
 }
 
 function SortingButton({ type, handleSortBySort, sortBy }: SortingButtonType) {
